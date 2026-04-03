@@ -149,14 +149,14 @@ with main_tabs[1]:
     with sub_tabs[3]: reputation_analyzer.render()
     with sub_tabs[4]: botnet_analyzer.render()
     with sub_tabs[5]:
-         st.subheader("🌐 Verificador de Identidad de Red")
-         st.write("Debido a las políticas de privacidad de Streamlit Cloud (Proxy Activo), la IP detectada internamente es la del servidor.")
-           
-         # Botón profesional para apertura externa
-         st.link_button("🚀 Verificar mi IP Real (Bypass Cloud)", "https://api.ipify.org")
+         st.subheader("🌐 Verificador de IP Pública")
+         st.warning("⚠️ Nota: Al estar en Streamlit Cloud, el sistema detecta la IP del Servidor.")
+         
+         # La única forma real: Un botón que abre una pestaña limpia en el navegador del usuario
+         st.link_button("👉 Pulsa aquí para ver TU IP REAL", "https://ifconfig.me")
            
          st.divider()
-         # El renderizador sigue su curso para las herramientas de análisis
+         # Dejamos el renderizador original para las otras herramientas de IP
          ip_validator.render()
 
 # --- PESTAÑA ANALYZE ---
