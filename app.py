@@ -149,10 +149,14 @@ with main_tabs[1]:
     with sub_tabs[3]: reputation_analyzer.render()
     with sub_tabs[4]: botnet_analyzer.render()
     with sub_tabs[5]:
-         import streamlit.components.v1 as components
-         js_code = """<script>fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => {window.parent.postMessage({type: 'streamlit:setComponentValue', value: d.ip}, '*');});</script>"""
-         components.html(js_code, height=0)
-         st.info("🔍 Detectando IP real del cliente (Bypass Cloud)...")
+         st.subheader("🌐 Verificador de Identidad de Red")
+         st.write("Debido a las políticas de privacidad de Streamlit Cloud (Proxy Activo), la IP detectada internamente es la del servidor.")
+           
+         # Botón profesional para apertura externa
+         st.link_button("🚀 Verificar mi IP Real (Bypass Cloud)", "https://api.ipify.org")
+           
+         st.divider()
+         # El renderizador sigue su curso para las herramientas de análisis
          ip_validator.render()
 
 # --- PESTAÑA ANALYZE ---
