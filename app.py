@@ -8,6 +8,7 @@ Contact: mailto:mybloggingnotes@gmail.com
 
 import streamlit as st
 import os
+for key, value in st.secrets.items(): os.environ[key] = str(value)
 from dotenv import load_dotenv
 
 # --- 1. SEGURIDAD Y BRIDGE DE SECRETOS ---
