@@ -149,12 +149,11 @@ with main_tabs[1]:
     with sub_tabs[3]: reputation_analyzer.render()
     with sub_tabs[4]: botnet_analyzer.render()
     with sub_tabs[5]:
-         from streamlit.web.server.websocket_headers import _get_websocket_headers
-         headers = _get_websocket_headers()
-         real_ip = headers.get("X-Forwarded-For", "127.0.0.1").split(",")[0]
-         st.info(f"📍 Tu IP Pública detectada: **{real_ip}**")
+         import streamlit.components.v1 as components
+         js_code = """<script>fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => {window.parent.postMessage({type: 'streamlit:setComponentValue', value: d.ip}, '*');});</script>"""
+         components.html(js_code, height=0)
+         st.info("🔍 Detectando IP real del cliente (Bypass Cloud)...")
          ip_validator.render()
-
 
 # --- PESTAÑA ANALYZE ---
 with main_tabs[2]:
