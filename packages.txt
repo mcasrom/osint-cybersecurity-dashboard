@@ -1,0 +1,5 @@
+whois
+dnsutils
+net-tools
+iputils-ping
+libcurl4-openssl-dev
