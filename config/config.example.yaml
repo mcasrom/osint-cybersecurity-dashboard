@@ -1,0 +1,39 @@
+app:
+  name: "OSINT Cybersecurity Dashboard"
+  version: "1.0.0"
+  environment: "production"
+  debug: false
+  port: 8501
+
+api_keys:
+  abuseipdb: "YOUR_ABUSEIPDB_API_KEY"
+  virustotal: "YOUR_VIRUSTOTAL_API_KEY"
+  shodan: "YOUR_SHODAN_API_KEY"
+
+database:
+  sqlite:
+    path: "./data/osint_dashboard.db"
+  redis:
+    host: "localhost"
+    port: 6379
+
+cve_monitoring:
+  enabled: true
+  update_frequency_hours: 1
+  severity_threshold: 6.0
+
+attack_surface:
+  enabled: true
+  scan_frequency_hours: 24
+  ports_to_scan:
+    - 80
+    - 443
+    - 22
+    - 3306
+    - 5432
+    - 8080
+
+logging:
+  level: "INFO"
+  format: "json"
+  file: "./logs/dashboard.log"

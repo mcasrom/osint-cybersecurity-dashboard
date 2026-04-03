@@ -1,0 +1,8 @@
+requests
+streamlit
+beautifulsoup4
+plotly
+python-dotenv
+pyyaml
+dnspython
+whois
