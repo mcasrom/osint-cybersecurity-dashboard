@@ -5,20 +5,23 @@ Author: M. Castillo
 Copyright: © 2024-2026 M. Castillo
 Contact: mailto:mybloggingnotes@gmail.com
 """
-
+# --- 1. SEGURIDAD Y BRIDGE DE SECRETOS (CABECERA LIMPIA) ---
 import streamlit as st
 import os
-for key, value in st.secrets.items(): os.environ[key] = str(value)
 from dotenv import load_dotenv
 
-# --- 1. SEGURIDAD Y BRIDGE DE SECRETOS ---
+# Primero cargamos lo local (ODROID)
 load_dotenv()
-# Si estamos en Streamlit Cloud, inyectamos los Secrets en el entorno del sistema
-try:
+
+# Segundo: Los Secrets de la WEB machacan lo que sea que haya en local
+# Esto garantiza que Shodan use la "caja fuerte" de Streamlit Cloud
+if hasattr(st, "secrets"):
     for key in st.secrets:
         os.environ[key] = str(st.secrets[key])
-except:
-    pass
+
+# --- AHORA YA PUEDES IMPORTAR TUS MÓDULOS ---
+from modules.dashboards.threat_dashboard import dashboard as threat_dashboard
+# ... resto de tus imports
 
 # --- 2. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
