@@ -148,7 +148,13 @@ with main_tabs[1]:
     with sub_tabs[2]: attack_surface_analyzer.render()
     with sub_tabs[3]: reputation_analyzer.render()
     with sub_tabs[4]: botnet_analyzer.render()
-    with sub_tabs[5]: ip_validator.render()
+    with sub_tabs[5]:
+         from streamlit.web.server.websocket_headers import _get_websocket_headers
+         headers = _get_websocket_headers()
+         real_ip = headers.get("X-Forwarded-For", "127.0.0.1").split(",")[0]
+         st.info(f"📍 Tu IP Pública detectada: **{real_ip}**")
+         ip_validator.render()
+
 
 # --- PESTAÑA ANALYZE ---
 with main_tabs[2]:
