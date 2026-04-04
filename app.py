@@ -24,8 +24,17 @@ except Exception as e:
 
 
 # --- IMPORTS ---
+try:
+    from utils.ip_tools import get_client_ip, render_client_ip_widget
+except ImportError:
+    # Si utils.ip_tools no existe, usamos fallbacks para que la app siga funcionando
+    def get_client_ip():
+        return "unknown"
 
-from utils.ip_tools import get_client_ip, render_client_ip_widget
+    def render_client_ip_widget():
+        pass
+
+
 from modules.dashboards.threat_dashboard import dashboard as threat_dashboard
 from modules.analyzers.cve_analyzer import analyzer as cve_analyzer
 from modules.analyzers.attack_surface_analyzer import analyzer as attack_surface_analyzer
@@ -195,6 +204,7 @@ with main_tabs[0]:
     with col_a:
         preview_page.render()
     with col_b:
+        # Esta función usa st_javascript + api.ipify.org
         render_client_ip_widget()
         st.markdown("### 📊 Recent Activity")
         st.markdown(
