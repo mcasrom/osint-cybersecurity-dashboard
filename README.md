@@ -1,95 +1,126 @@
-# OSINT Cybersecurity Dashboard
+# SIGE OSINT - Privacy Tools
 
-Professional open-source threat intelligence platform for real-time CVE monitoring, botnet detection, and vulnerability management.
+Enterprise‑grade OSINT and cybersecurity dashboard for real‑time threat intelligence, CVE monitoring, attack surface analysis, and reputation‑based threat detection.
 
-## Features
+## 🎯 Overview
 
-- Real-time CVE Monitoring from NVD
-- Botnet Detection with Geomaps
-- External Attack Surface Analysis
-- IP and Domain Reputation Checking
-- Interactive Dashboards and KPIs
-- Multiple API Integrations
-- Enterprise-Grade Security
-- Docker and Kubernetes Ready
+**SIGE OSINT - Privacy Tools** is an open‑source, enterprise‑grade OSINT and cybersecurity dashboard built with Python and Streamlit. It helps SOC analysts, penetration testers, and OSINT researchers monitor:
 
-## Quick Start
+- CVEs in real time
+- Attack surface exposure
+- Reputation‑based threats
+- Botnet / malicious activity
+- Public IP analysis (from the browser, not the server)
 
+Designed for **local execution** on your own hardware (e.g., an Odroid or Linux server), but deployable on Streamlit Cloud for remote access.
+
+---
+
+## 📸 Screenshots
+
+To keep the repo light, we avoid storing large screenshots directly here.  
+If you want visual references, see the project in action in the Streamlit deployment:
+
+👉 [https://share.streamlit.io/mcasrom/osint-cybersecurity-dashboard](https://share.streamlit.io/mcasrom/osint-cybersecurity-dashboard)
+
+---
+
+## 🧩 Features
+
+### Home / Dashboard
+- General KPIs: CVEs today, critical CVEs, exploitable vulnerabilities, threat level, and system health.
+- `About` box that explains the purpose and target audience.
+
+### Monitor
+- **Dashboard**: Real‑time overview of detected threats and anomalies.
+- **CVE Monitoring**: Watch for new CVEs relevant to your environment.
+- **Attack Surface**: Analyze exposed systems and services.
+- **Reputation**: Check IP/domain reputation and malicious history.
+- **Botnets**: Botnet‑related IP checks and alerts.
+- **IP Validator**: Basic IP validation and sanity checks.
+
+### Analyze
+- **Methodology**: Documentation of the OSINT methodology used.
+- **Technical Docs**: API and internal module references.
+- **Benchmarks**: Performance and usage benchmarks.
+
+### Learn
+- **Help Guide**: User‑oriented instructions and troubleshooting.
+- **API Reference**: Documentation of internal API structures.
+
+### Business
+- **Use Cases**: Example scenarios and workflows for different roles.
+
+### Configure
+- **API Keys**: Centralized configuration for external services.
+- **Settings**: General app settings and UI preferences.
+
+---
+
+## 🚀 Quick Start (Local)
+
+Run this app on your own machine (e.g., Linux, Odroid, or Raspberry Pi):
+
+```bash
+# Clona el repositorio
 git clone https://github.com/mcasrom/osint-cybersecurity-dashboard.git
 cd osint-cybersecurity-dashboard
-bash setup.sh
+
+# Crea y activa el entorno virtual
+python3 -m venv venv
 source venv/bin/activate
-bash run_dashboard.sh
 
-Then open http://localhost:8501
+# Instala dependencias
+pip install -r requirements.txt
 
-## Requirements
+# Ejecuta la app
+python app.py
+```
 
-- Python 3.13 or higher
-- 2GB RAM minimum
-- Linux or macOS
-- Docker optional
+Then open in your browser:
 
-## System Modules
+```text
+http://localhost:8501
+```
 
-- Dashboard - Real-time threat monitoring
-- CVE Analyzer - Vulnerability tracking
-- Attack Surface Scanner - Infrastructure discovery
-- Reputation Checker - IP/Domain validation
-- Botnet Detector - Compromised system detection
-- IP Validator - Security auditing
-- API Manager - Third-party service integration
-- Documentation - Technical reference
+---
 
-## Technology Stack
+## ☁ Deployment on Streamlit Cloud
 
-- Frontend: Streamlit with Plotly charts
-- Backend: Python 3.13 and FastAPI
-- Database: SQLite or PostgreSQL
-- Cache: Redis
-- Deployment: Docker and Kubernetes
+To deploy this app publicly, use Streamlit Cloud:
 
-## Integration Sources
+1. Fork or push this repo to your GitHub account.
+2. Go to [https://share.streamlit.io](https://share.streamlit.io) and connect your GitHub repository.
+3. Configure the main file as `app.py` and let it build.
 
-- NVD - National Vulnerability Database
-- AbuseIPDB - IP reputation data
-- VirusTotal - File and domain analysis
-- Shodan - Internet device scanning
-- Censys - Certificate intelligence
-- GreyNoise - Internet scanning data
+The app will run in the cloud, but **for real client IP detection**, you must use the local‑hosted version or inject your IP manually into the Botnet module.
 
-## Performance
+---
 
-- Dashboard loads in 1.2 seconds
-- CVE lookups complete in 2.1 seconds
-- IP reputation checks in 0.8 seconds
-- Full domain scans in 15 seconds
+## 💡 Best Practices
 
-## Security
+- For **real IP / botnet checks**, run this app **locally** (not on Streamlit Cloud), where it can see your network IP directly.
+- Use the **“Get Your Public IP (for Botnet Check)”** button in the `Home` tab to retrieve your IP from the browser when using the cloud version.
+- Copy that IP and paste it into the **Botnets** tab for detailed analysis.
 
-- HTTPS with TLS 1.3 encryption
-- Role-based access control
-- API key management and encryption
-- Complete audit logging
-- GDPR and HIPAA compliant
+---
 
-## Support
+## 📦 Requirements
 
-Email: mybloggingnotes@gmail.com
-GitHub Issues for bug reports
-Community contributions welcome
+- Python 3.8+
+- Streamlit
+- `requests` (for public IP checks)
+- Other dependencies listed in `requirements.txt`
 
-## Author
+---
 
-M. Castillo - Cybersecurity Professional
+## 📄 License
 
-## License
+This project is licensed under the terms specified in the `LICENSE` file.
 
-MIT License - Full terms in LICENSE.md file
+---
 
-## Version
+## 👤 Attribution
 
-3.2.0 - Enterprise Edition
-
-OSINT Cybersecurity Dashboard
-Open source threat intelligence platform
+Author: **M. Castillo**  
+Contact: <mailto:mybloggingnotes@gmail.com>
