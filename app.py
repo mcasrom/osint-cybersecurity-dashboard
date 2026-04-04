@@ -174,20 +174,21 @@ main_tabs = st.tabs([
 
 # --- PESTAÑA HOME ---
 with main_tabs[0]:
-    # About section con mejor contraste y texto claro
+    # About section con mejor contraste y HTML corregido
     st.markdown("""
     <div class="about-box">
         <h3>About This Platform</h3>
 
         <p><strong>OSINT Cybersecurity Dashboard</strong></p>
         <p>Enterprise‑grade OSINT and cybersecurity dashboard for real‑time threat intelligence, CVE monitoring, attack surface analysis, and reputation‑based threat detection.</p>
-        <p>This dashboard is designed for:
-            <ul style="font-size: 0.9em;">
-                <li>SOC analysts and incident responders.</li>
-                <li>Security engineers and penetration testers.</li>
-                <li>OSINT researchers and privacy consultants.</li>
-            </ul>
-        </p>
+
+        <p>This dashboard is designed for:</p>
+        <ul style="font-size: 0.9em; margin-bottom: 0;">
+            <li>SOC analysts and incident responders.</li>
+            <li>Security engineers and penetration testers.</li>
+            <li>OSINT researchers and privacy consultants.</li>
+        </ul>
+
         <p style="font-size: 0.9em; opacity: 0.8;">© 2024–2026 M. Castillo | <a href="mailto:mybloggingnotes@gmail.com">Contact</a></p>
         <p style="font-size: 0.8em; font-weight: bold;">Version 3.2.0 | Enterprise Threat Intelligence Features Enabled</p>
     </div>
