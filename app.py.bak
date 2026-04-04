@@ -148,35 +148,7 @@ with main_tabs[1]:
     with sub_tabs[2]: attack_surface_analyzer.render()
     with sub_tabs[3]: reputation_analyzer.render()
     with sub_tabs[4]: botnet_analyzer.render()
-    with sub_tabs[5]:
-         from streamlit.web.server.websocket_headers import _get_websocket_headers
-         headers = _get_websocket_headers()
-         if headers:
-              # Buscamos 'X-Forwarded-For' porque 'forwarded' en el JSON confirma que existe
-              raw_ip = headers.get("X-Forwarded-For", "")
-              # Split por coma y pillamos la primera (la del usuario real)
-              real_ip = raw_ip.split(',')[0].strip() if raw_ip else "No detectada"
-              st.success(f"🌐 **Tu IP Real:** `{real_ip}`")
-         else:
-              st.error("No se han podido leer las cabeceras de red.")
-           
-         ip_validator.render()
-
-
-
-
-
-
-    with sub_tabs[5]:
-         st.subheader("🌐 Verificador de IP Pública")
-         st.warning("⚠️ Nota: Al estar en Streamlit Cloud, el sistema detecta la IP del Servidor.")
-         
-         # La única forma real: Un botón que abre una pestaña limpia en el navegador del usuario
-         st.link_button("👉 Pulsa aquí para ver TU IP REAL", "https://ifconfig.me")
-           
-         st.divider()
-         # Dejamos el renderizador original para las otras herramientas de IP
-         ip_validator.render()
+    with sub_tabs[5]: ip_validator.render()
 
 # --- PESTAÑA ANALYZE ---
 with main_tabs[2]:
