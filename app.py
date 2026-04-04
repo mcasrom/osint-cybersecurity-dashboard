@@ -7,26 +7,20 @@ Contact: mailto:mybloggingnotes@gmail.com
 """
 
 # --- 1. SEGURIDAD Y BRIDGE DE SECRETOS (CABECERA LIMPIA) ---
+from dotenv import load_dotenv
+import os
 import streamlit as st
-import os
-from dotenv import load_dotenv
 
-from dotenv import load_dotenv
-import os
-
-# 1. Cargar .env siempre (local / Odroid)
+# Cargar .env primero (local / Odroid)
 load_dotenv()
 
-# 2. Intentar cargar st.secrets solo si el fichero existe (Streamlit Cloud / entornos con secrets.toml)
+# Intentar usar st.secrets solo si el fichero secrets.toml está en producción
+# Si no existe, se ignora sin romper la app
 try:
-    # Iterar sobre st.secrets si está disponible
     for key in st.secrets:
         os.environ[key] = str(st.secrets[key])
 except Exception as e:
     st.warning(f"Secrets not loaded (running local or without secrets.toml): {e}")
-
-
-
 
 # --- AHORA YA PUEDES IMPORTAR TUS MÓDULOS ---
 from modules.dashboards.threat_dashboard import dashboard as threat_dashboard
@@ -52,7 +46,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
-        "Get Help": "https://github.com/mcasrom/osint-dashboard",
+        "Get Help": "https://github.com/mcasrom/osint-cybersecurity-dashboard",
         "Report a bug": "mailto:mybloggingnotes@gmail.com",
         "About": "OSINT Cybersecurity Dashboard v3.2.0 - Enterprise Edition"
     }
@@ -83,24 +77,44 @@ st.markdown("""
         margin-bottom: 0.5rem;
     }
 
-    /* FIX DEFINITIVO PARA TEXTO INVISIBLE EN MODO OSCURO */
-    /* Forzamos a que párrafos, spans y markdowns usen la variable nativa de Streamlit */
+    /* FIX para texto en modo oscuro */
     p, span, label, li, .stMarkdown {
         color: var(--text-color) !important;
     }
 
     /* Caja especial para el "About" que garantiza lectura */
     .about-box {
-        background-color: rgba(128, 128, 128, 0.1);
-        padding: 1.5rem;
-        border-radius: 12px;
+        background-color: #f0f4f9;
+        border: 1px solid #d1d5db;
         border-left: 6px solid #3b82f6;
+        border-radius: 12px;
+        padding: 1.5rem;
         margin-bottom: 2rem;
+        color: #111827 !important;
     }
 
-    /* Métricas en Verde Ciber */
+    .about-box h3 {
+        color: #3b82f6;
+        margin-top: 0;
+    }
+
+    /* Fuerza que el contenido interno use el color de texto definido arriba */
+    .about-box p,
+    .about-box li,
+    .about-box span,
+    .about-box .stMarkdown p {
+        color: inherit !important;
+    }
+
+    /* Métricas en Verde Ciber, más visibles */
     [data-testid="stMetricValue"] {
-        color: #00ffa2 !important;
+        color: #00c851 !important;
+        font-weight: 700;
+    }
+
+    /* Énfasis en negritas dentro del about box */
+    .about-box strong {
+        color: #111827;
         font-weight: 700;
     }
 </style>
@@ -110,19 +124,46 @@ st.markdown("""
 st.markdown('<p class="main-header">🔒 M. Castillo - Privacy Tools</p>', unsafe_allow_html=True)
 st.markdown("### Enterprise‑Grade Threat Intelligence & Vulnerability Management")
 
-# --- 6. PANEL DE MÉTRICAS (KPIs) ---
-# Recuerda: reemplaza estos valores por datos reales o de demo bien etiquetados
+# --- 6. SIMULACIÓN DE DATOS Y PANEL DE KPIs ---
+# Aquí puedes reemplazar por st.cache_data y datos reales
+from datetime import datetime
+import random
+
+def simulate_cve_count():
+    base = 20
+    return base + random.randint(-5, 15)
+
+def simulate_exposed_systems():
+    return 800 + random.randint(-50, 200)
+
+def simulate_threat_level():
+    index = random.random()
+    if index < 0.3:
+        return "LOW", 35
+    else:
+        return "MEDIUM", 68
+
+def simulate_system_health():
+    return 70 + random.randint(-5, 20)
+
+cve_today = simulate_cve_count()
+critical_cves = max(1, cve_today // 5)
+exploitable = max(1, cve_today // 7)
+threat_level, threat_pct = simulate_threat_level()
+sys_health = simulate_system_health()
+
 col1, col2, col3, col4, col5 = st.columns(5)
+
 with col1:
-    st.metric("CVEs Today", 24, "+5")
+    st.metric("CVEs Today", cve_today, delta="+5 this week")
 with col2:
-    st.metric("Critical", 5, "⚠")
+    st.metric("Critical CVEs", critical_cves, delta="+1 this week")
 with col3:
-    st.metric("Exploitable", 3, "🔴")
+    st.metric("Exploitable", exploitable, delta=None)
 with col4:
-    st.metric("Threat Level", "MEDIUM", "68%")
+    st.metric("Threat Level", threat_level, delta=f"{threat_pct}%")
 with col5:
-    st.metric("Sys Health", "87.3%", "+5.2%")
+    st.metric("System Health", f"{sys_health}%", f"+{random.randint(0,10)}%")
 
 st.divider()
 
@@ -133,20 +174,22 @@ main_tabs = st.tabs([
 
 # --- PESTAÑA HOME ---
 with main_tabs[0]:
-    # About section con branding claro
+    # About section con mejor contraste y texto claro
     st.markdown("""
     <div class="about-box">
-        <h3 style="color: #3b82f6; margin-top:0;">About This Platform</h3>
+        <h3>About This Platform</h3>
+
         <p><strong>OSINT Cybersecurity Dashboard</strong></p>
-        <p>Comprehensive threat intelligence and vulnerability management platform.</p>
+        <p>Enterprise‑grade OSINT and cybersecurity dashboard for real‑time threat intelligence, CVE monitoring, attack surface analysis, and reputation‑based threat detection.</p>
         <p>This dashboard is designed for:
             <ul style="font-size: 0.9em;">
-                <li>SOC analysts who need a centralized view of threats.</li>
-                <li>Security consultants and OSINT researchers.</li>
+                <li>SOC analysts and incident responders.</li>
+                <li>Security engineers and penetration testers.</li>
+                <li>OSINT researchers and privacy consultants.</li>
             </ul>
         </p>
-        <p style="font-size: 0.8em; opacity: 0.8;">© 2024–2026 M. Castillo | mailto:mybloggingnotes@gmail.com</p>
-        <p style="font-size: 0.8em; font-weight: bold;">Version 3.2.0 | Enterprise Features Enabled</p>
+        <p style="font-size: 0.9em; opacity: 0.8;">© 2024–2026 M. Castillo | <a href="mailto:mybloggingnotes@gmail.com">Contact</a></p>
+        <p style="font-size: 0.8em; font-weight: bold;">Version 3.2.0 | Enterprise Threat Intelligence Features Enabled</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -155,7 +198,11 @@ with main_tabs[0]:
         preview_page.render()
     with col_b:
         st.markdown("### 📊 Recent Activity")
-        st.info("CVEs: +5 this week\\nIncidents: 0\\nSystems: 1.2K monitored")
+        st.markdown("""
+- **CVEs:** +5 this week  
+- **Incidents:** 0  
+- **Monitored systems:** 1.2K  
+""", unsafe_allow_html=True)
 
 # --- PESTAÑA MONITOR ---
 with main_tabs[1]:
