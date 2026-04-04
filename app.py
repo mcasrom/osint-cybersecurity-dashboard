@@ -22,7 +22,6 @@ try:
 except Exception as e:
     st.warning(f"Secrets not loaded (running local or without secrets.toml): {e}")
 
-
 # --- IMPORTS ---
 try:
     from utils.ip_tools import get_client_ip, render_client_ip_widget
@@ -33,7 +32,6 @@ except ImportError:
 
     def render_client_ip_widget():
         pass
-
 
 from modules.dashboards.threat_dashboard import dashboard as threat_dashboard
 from modules.analyzers.cve_analyzer import analyzer as cve_analyzer
@@ -173,7 +171,6 @@ main_tabs = st.tabs([
 ])
 
 # --- PESTAÑA HOME ---
-# --- PESTAÑA HOME ---
 with main_tabs[0]:
 
     # Recuadro "About" limpio
@@ -228,25 +225,13 @@ with main_tabs[0]:
         st.markdown("### 🌐 Get Your Public IP (for Botnet Check)")
 
         if st.button("Obtener mi IP pública (copiar y pegar en Botnets)"):
-    from utils.ip_tools import get_public_ip_python
-    ip = get_public_ip_python()
-    if ip != "unknown":
-        st.code(f"Tu IP pública: {ip}")
-        st.markdown(f"La puedes pegar en la sección **Botnets**.")
-    else:
-        st.warning("No se pudo obtener tu IP pública.")
-            # Script JavaScript que devuelve solo la IP
-            script = "await fetch('https://api.ipify.org?format=json').then(r => r.json()).then(r => r.ip);"
+            import requests
             try:
-                ip = st_javascript(script)
-                if ip and isinstance(ip, str):
-                    st.code(f"Tu IP pública: {ip}")
-                    st.markdown(f"La puedes pegar en la sección **Botnets**.")
-                else:
-                    st.warning("No se pudo obtener tu IP pública.")
-            except Exception as e:
-                st.warning("Could not get your public IP.")
-
+                ip = requests.get("https://api.ipify.org").text
+                st.code(f"Tu IP pública: {ip}")
+                st.markdown(f"La puedes pegar en la sección **Botnets**.")
+            except Exception:
+                st.warning("No se pudo obtener tu IP pública.")
 
 # --- PESTAÑA MONITOR ---
 with main_tabs[1]:
