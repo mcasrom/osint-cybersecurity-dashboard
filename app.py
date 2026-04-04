@@ -22,7 +22,10 @@ try:
 except Exception as e:
     st.warning(f"Secrets not loaded (running local or without secrets.toml): {e}")
 
-# --- AHORA YA PUEDES IMPORTAR TUS MÓDULOS ---
+
+# --- IMPORTS ---
+
+from utils.ip_tools import get_client_ip, render_client_ip_widget
 from modules.dashboards.threat_dashboard import dashboard as threat_dashboard
 from modules.analyzers.cve_analyzer import analyzer as cve_analyzer
 from modules.analyzers.attack_surface_analyzer import analyzer as attack_surface_analyzer
@@ -163,7 +166,7 @@ main_tabs = st.tabs([
 # --- PESTAÑA HOME ---
 with main_tabs[0]:
 
-    # Recuadro "About" limpio (sin HTML escapado, solo Markdown + contenedor)
+    # Recuadro "About" limpio
     st.markdown('<div class="about-box">', unsafe_allow_html=True)
 
     st.markdown("### About This Platform")
@@ -187,11 +190,12 @@ with main_tabs[0]:
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # Vista rápida + reciente actividad
+    # Diagnóstico IP + vista rápida + reciente actividad
     col_a, col_b = st.columns([2, 1])
     with col_a:
         preview_page.render()
     with col_b:
+        render_client_ip_widget()
         st.markdown("### 📊 Recent Activity")
         st.markdown(
             "- **CVEs:** +5 this week  \n"
@@ -213,7 +217,7 @@ with main_tabs[1]:
     with sub_tabs[3]:
         reputation_analyzer.render()
     with sub_tabs[4]:
-        botnet_analyzer.render()
+        botnet_analyzer.render()  # usa get_client_ip() por dentro
     with sub_tabs[5]:
         ip_validator.render()
 
