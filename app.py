@@ -61,70 +61,61 @@ st.markdown("""
 <meta property="og:description" content="Enterprise-grade OSINT cybersecurity dashboard for real-time threat intelligence and vulnerability management.">
 """, unsafe_allow_html=True)
 
-# --- 4. MOTOR DE ESTILOS (CSS ADAPTATIVO DARK/LIGHT) ---
-st.markdown("""
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-    * { font-family: 'Inter', sans-serif; }
+# --- 4. ESTILO DE FONDO DEL ABOUT BOX (CSS ligero) ---
+st.markdown(
+    """
+    <style>
+        .about-box {
+            background: #f0f4f9;
+            border: 1px solid #d1d5db;
+            border-left: 6px solid #3b82f6;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: #111827;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-    /* Título Principal con Gradiente Profesional */
-    .main-header { 
-        font-size: 3.5rem !important; 
-        font-weight: 800; 
-        background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0.5rem;
-    }
+# --- 5. MOTOR DE ESTILOS EXTRA (si quieres) ---
+st.markdown(
+    """
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        * { font-family: 'Inter', sans-serif; }
 
-    /* FIX para texto en modo oscuro */
-    p, span, label, li, .stMarkdown {
-        color: var(--text-color) !important;
-    }
+        /* Título Principal con Gradiente Profesional */
+        .main-header { 
+            font-size: 3.5rem !important; 
+            font-weight: 800; 
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
 
-    /* Caja especial para el "About" que garantiza lectura */
-    .about-box {
-        background-color: #f0f4f9;
-        border: 1px solid #d1d5db;
-        border-left: 6px solid #3b82f6;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-        color: #111827 !important;
-    }
+        /* FIX para texto en modo oscuro */
+        p, span, label, li, .stMarkdown {
+            color: var(--text-color) !important;
+        }
 
-    .about-box h3 {
-        color: #3b82f6;
-        margin-top: 0;
-    }
+        /* Métricas en Verde Ciber */
+        [data-testid="stMetricValue"] {
+            color: #00c851 !important;
+            font-weight: 700;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-    /* Fuerza que el contenido interno use el color de texto definido arriba */
-    .about-box p,
-    .about-box li,
-    .about-box span,
-    .about-box .stMarkdown p {
-        color: inherit !important;
-    }
-
-    /* Métricas en Verde Ciber, más visibles */
-    [data-testid="stMetricValue"] {
-        color: #00c851 !important;
-        font-weight: 700;
-    }
-
-    /* Énfasis en negritas dentro del about box */
-    .about-box strong {
-        color: #111827;
-        font-weight: 700;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# --- 5. CABECERA ---
+# --- 6. CABECERA ---
 st.markdown('<p class="main-header">🔒 M. Castillo - Privacy Tools</p>', unsafe_allow_html=True)
 st.markdown("### Enterprise‑Grade Threat Intelligence & Vulnerability Management")
 
-# --- 6. SIMULACIÓN DE DATOS Y PANEL DE KPIs ---
+# --- 7. SIMULACIÓN DE DATOS Y KPIs ---
 # Aquí puedes reemplazar por st.cache_data y datos reales
 from datetime import datetime
 import random
@@ -132,9 +123,6 @@ import random
 def simulate_cve_count():
     base = 20
     return base + random.randint(-5, 15)
-
-def simulate_exposed_systems():
-    return 800 + random.randint(-50, 200)
 
 def simulate_threat_level():
     index = random.random()
@@ -167,43 +155,49 @@ with col5:
 
 st.divider()
 
-# --- 7. NAVEGACIÓN PRINCIPAL ---
+# --- 8. NAVEGACIÓN PRINCIPAL ---
 main_tabs = st.tabs([
     "🏠 Home", "📊 Monitor", "🔍 Analyze", "📚 Learn", "💼 Business", "🛠 Configure"
 ])
 
 # --- PESTAÑA HOME ---
 with main_tabs[0]:
-    # About section con mejor contraste y HTML corregido
-    st.markdown("""
-    <div class="about-box">
-        <h3>About This Platform</h3>
 
-        <p><strong>OSINT Cybersecurity Dashboard</strong></p>
-        <p>Enterprise‑grade OSINT and cybersecurity dashboard for real‑time threat intelligence, CVE monitoring, attack surface analysis, and reputation‑based threat detection.</p>
+    # Recuadro "About" limpio (sin HTML escapado, solo Markdown + contenedor)
+    st.markdown('<div class="about-box">', unsafe_allow_html=True)
 
-        <p>This dashboard is designed for:</p>
-        <ul style="font-size: 0.9em; margin-bottom: 0;">
-            <li>SOC analysts and incident responders.</li>
-            <li>Security engineers and penetration testers.</li>
-            <li>OSINT researchers and privacy consultants.</li>
-        </ul>
+    st.markdown("### About This Platform")
+    st.markdown("**OSINT Cybersecurity Dashboard**")
+    st.markdown(
+        "Enterprise‑grade OSINT and cybersecurity dashboard for real‑time threat intelligence, "
+        "CVE monitoring, attack surface analysis, and reputation‑based threat detection."
+    )
+    st.markdown("This dashboard is designed for:")
+    st.markdown(
+        "- SOC analysts and incident responders.\n"
+        "- Security engineers and penetration testers.\n"
+        "- OSINT researchers and privacy consultants."
+    )
+    st.markdown(
+        "© 2024–2026 M. Castillo | [Contact](mailto:mybloggingnotes@gmail.com)"
+    )
+    st.markdown(
+        "Version 3.2.0 | Enterprise Threat Intelligence Features Enabled"
+    )
 
-        <p style="font-size: 0.9em; opacity: 0.8;">© 2024–2026 M. Castillo | <a href="mailto:mybloggingnotes@gmail.com">Contact</a></p>
-        <p style="font-size: 0.8em; font-weight: bold;">Version 3.2.0 | Enterprise Threat Intelligence Features Enabled</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
+    # Vista rápida + reciente actividad
     col_a, col_b = st.columns([2, 1])
     with col_a:
         preview_page.render()
     with col_b:
         st.markdown("### 📊 Recent Activity")
-        st.markdown("""
-- **CVEs:** +5 this week  
-- **Incidents:** 0  
-- **Monitored systems:** 1.2K  
-""", unsafe_allow_html=True)
+        st.markdown(
+            "- **CVEs:** +5 this week  \n"
+            "- **Incidents:** 0  \n"
+            "- **Monitored systems:** 1.2K  "
+        )
 
 # --- PESTAÑA MONITOR ---
 with main_tabs[1]:
@@ -259,12 +253,15 @@ with main_tabs[5]:
     with sub_tabs[1]:
         settings_page.render()
 
-# --- 8. FOOTER PROFESIONAL ---
+# --- 9. FOOTER PROFESIONAL ---
 st.divider()
-st.markdown("""
-<div style='text-align: center; padding: 20px; opacity: 0.7;'>
-    <p><strong>M. Castillo - Privacy Tools</strong> | OSINT Cybersecurity Dashboard v3.2.0</p>
-    <p>© 2024–2026 M. Castillo | <a href='mailto:mybloggingnotes@gmail.com'>Contact Support</a></p>
-    <p style='font-size: 0.8em;'>Enterprise Threat Intelligence • Real‑time Monitoring • Advanced Analytics</p>
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='text-align: center; padding: 20px; opacity: 0.7;'>
+        <p><strong>M. Castillo - Privacy Tools</strong> | OSINT Cybersecurity Dashboard v3.2.0</p>
+        <p>© 2024–2026 M. Castillo | <a href='mailto:mybloggingnotes@gmail.com'>Contact Support</a></p>
+        <p style='font-size: 0.8em;'>Enterprise Threat Intelligence • Real‑time Monitoring • Advanced Analytics</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
