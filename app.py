@@ -122,7 +122,7 @@ st.markdown(
 )
 
 # --- 6. CABECERA ---
-st.markdown('<p class="main-header">🔒 M. Castillo - Privacy Tools</p>', unsafe_allow_html=True)
+st.markdown('<p class="main-header">🔒 SIGE OSINT - Privacy Tools</p>', unsafe_allow_html=True)
 st.markdown("### Enterprise‑Grade Threat Intelligence & Vulnerability Management")
 
 # --- 7. SIMULACIÓN DE DATOS Y KPIs ---
@@ -292,7 +292,7 @@ st.divider()
 st.markdown(
     """
     <div style='text-align: center; padding: 20px; opacity: 0.7;'>
-        <p><strong>M. Castillo - Privacy Tools</strong> | OSINT Cybersecurity Dashboard v3.2.0</p>
+        <p><strong>SIGE OSINT - Privacy Tools</strong> | OSINT Cybersecurity Dashboard v3.2.0</p>
         <p>© 2024–2026 M. Castillo | <a href='mailto:mybloggingnotes@gmail.com'>Contact Support</a></p>
         <p style='font-size: 0.8em;'>Enterprise Threat Intelligence • Real‑time Monitoring • Advanced Analytics</p>
     </div>
