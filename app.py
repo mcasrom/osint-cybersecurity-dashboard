@@ -173,6 +173,7 @@ main_tabs = st.tabs([
 ])
 
 # --- PESTAÑA HOME ---
+# --- PESTAÑA HOME ---
 with main_tabs[0]:
 
     # Recuadro "About" limpio
@@ -204,14 +205,48 @@ with main_tabs[0]:
     with col_a:
         preview_page.render()
     with col_b:
-        # Esta función usa st_javascript + api.ipify.org
+        # --- Botón My IP (explica el límite) ---
         render_client_ip_widget()
-        st.markdown("### 📊 Recent Activity")
+
+        # --- Mensaje de contexto ---
         st.markdown(
-            "- **CVEs:** +5 this week  \n"
-            "- **Incidents:** 0  \n"
-            "- **Monitored systems:** 1.2K  "
+            """
+            | **Contexto de IP** |
+            | --- |
+            | Si ejecutas esta app **en Streamlit Cloud**, el botón \"My IP\"  
+            | muestra la IP del servidor de Streamlit, no la tuya real. |
+            | |
+            | Si clonas la app en tu entorno local (por ejemplo, en tu Odroid),  
+            | el botón **sí** detectará tu IP real. |
+            | Para un análisis de botnet / reputación serio,  
+            | consulta tu IP real desde un navegador normal y pégala en la sección **Botnets**. |
+            """,
+            unsafe_allow_html=True,
         )
+
+        # --- Opción 2: Get IP from browser (for Botnet Check) ---
+        st.markdown("### 🌐 Get Your Public IP (for Botnet Check)")
+
+        if st.button("Obtener mi IP pública (copiar y pegar en Botnets)"):
+    from utils.ip_tools import get_public_ip_python
+    ip = get_public_ip_python()
+    if ip != "unknown":
+        st.code(f"Tu IP pública: {ip}")
+        st.markdown(f"La puedes pegar en la sección **Botnets**.")
+    else:
+        st.warning("No se pudo obtener tu IP pública.")
+            # Script JavaScript que devuelve solo la IP
+            script = "await fetch('https://api.ipify.org?format=json').then(r => r.json()).then(r => r.ip);"
+            try:
+                ip = st_javascript(script)
+                if ip and isinstance(ip, str):
+                    st.code(f"Tu IP pública: {ip}")
+                    st.markdown(f"La puedes pegar en la sección **Botnets**.")
+                else:
+                    st.warning("No se pudo obtener tu IP pública.")
+            except Exception as e:
+                st.warning("Could not get your public IP.")
+
 
 # --- PESTAÑA MONITOR ---
 with main_tabs[1]:

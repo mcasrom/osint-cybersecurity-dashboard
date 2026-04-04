@@ -38,3 +38,13 @@ def render_client_ip_widget():
         st.warning("Could not detect your real IP.")
     else:
         st.code(f"Your IP: {client_ip}")
+import requests
+
+def get_public_ip_python() -> str:
+    try:
+        response = requests.get("https://api.ipify.org")
+        if response.status_code == 200:
+            return response.text.strip()
+    except Exception:
+        pass
+    return "unknown"
